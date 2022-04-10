@@ -1,0 +1,56 @@
+<article class="post">
+  {{#if loggedIn}}
+  <div class="back-btn">
+    <a class="btn" href="/dashboard"> &larr; homepage</a>
+  </div>
+  {{else}}
+  <a class="btn" href="/"> &larr; Back to Home</a>
+  {{/if}}
+  <div class="post-title title-wrapper">
+    <div class="title">
+      <h3 id="blogpost-title">{{blogPost.title}}</h3>
+    </div>
+    <div class="post-creator details">
+      {{#if blogPost.user.user_name}}
+      <p>Posted by {{blogPost.user.user_name}} on {{date_formatting blogPost.created_at}}</p>
+      {{else}}
+      <p>Created {{date_formatting blogPost.created_at}}</p>
+      {{/if}}
+    </div>
+  </div>
+  <div class="post-content content">
+    <p>{{blogPost.post_content}}</p>
+  </div>
+</article>
+
+<form class="comment-form">
+  {{#if loggedIn}}
+  <h2>Leave Comment </h2>
+  <div>
+    <textarea class="comment-content" name="comment-content"></textarea>
+  </div>
+
+  <div>
+    <button class="btn" type="submit">add comment</button>
+  </div>
+  {{/if}}
+</form>
+
+<div class="comments">
+  <h2>Comments:</h2>
+  {{#each blogPost.comments as |comment|}}
+  <section class="comment">
+    <div class="text">
+      {{comment.comment_content}}
+    </div>
+    <div class="content">
+      posted by {{comment.user.user_name}} on {{date_formatting comment.created_at}}
+    </div>
+    <form class="delete-comment-form" id="id-{{comment.id}}">
+      <button class="delete-comment-btn btn">Delete</button>
+    </form>
+  </section>
+  {{/each}}
+</div>
+
+<script src="/javascript/postComment.js"></script>

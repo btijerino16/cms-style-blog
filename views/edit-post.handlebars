@@ -1,0 +1,42 @@
+<article>
+  <a class="btn"href="/dashboard"> &larr; Back to dashboard</a>
+  <h2>
+    Edit Post
+  </h2>
+  <form class="edit-post-form">
+    <div class="post-title-wrapper">
+      <label for="post-title">title:</label>
+      <input id="post-title" class="post-title" name="post-title" type="text" value="{{blogPost.title}}" />
+    </div>
+    <div class="post-content-wrapper">
+      <label for="post-content">Content:</label>
+      <textarea id="post-content" class="post-content" name="post-content">{{blogPost.post_content}}</textarea>
+    </div>
+    <div class="post-btn-wrapper">
+      <button class="btn" type="submit">Save post</button>
+      <button type="button" class="delete-post-btn btn">Delete post</button>
+    </div>
+  </form>
+</article>
+
+<div class="comment-wrapper">
+  <h2>Comments:</h2>
+  <div class="comments">
+    {{#each blogPost.comments as |comment|}}
+    <section class="comment">
+      <div class="text">
+        {{comment.comment_content}}
+      </div>
+      <div class="content">
+        {{blogPost.user.user_name}} on {{date_formatting comment.created_at}}
+      </div>
+      <form class="delete-comment-form" id="id-{{comment.id}}">
+        <button class="delete-comment-btn btn">Delete</button>
+      </form>
+    </section>
+    {{/each}}
+  </div>
+</div>
+
+<script src="/javascript/editPost.js"></script>
+<script src="/javascript/deletePost.js"></script>
